@@ -838,6 +838,13 @@ MpTcpSocketBase::ReceivedData(uint8_t sFlowIdx, Ptr<Packet> p, const TcpHeader& 
   vector<TcpOptions*> options = mptcpHeader.GetOptions();
   TcpOptions* opt;
   bool stored = true;
+  NS_LOG_INFO("========ReceivedData========"  << std::endl);
+  NS_LOG_INFO("ReceivedData->GetSourcePort: " << mptcpHeader.GetSourcePort() << std::endl);
+  NS_LOG_INFO("ReceivedData->GetDestinationPort: " << mptcpHeader.GetDestinationPort() << std::endl);
+  NS_LOG_INFO("ReceivedData->GetAckNumber: " << mptcpHeader.GetAckNumber() << std::endl);
+  NS_LOG_INFO("ReceivedData->GetSequenceNumber: " << mptcpHeader.GetSequenceNumber() << std::endl);
+  NS_LOG_INFO("============================"  << std::endl);
+
   for (uint32_t i = 0; i < options.size(); i++)
     {
       opt = options[i];
@@ -1074,6 +1081,9 @@ MpTcpSocketBase::SendDataPacket(uint8_t sFlowIdx, uint32_t size, bool withAck)
       NS_ASSERT_MSG(sFlow->maxSeqNb == sFlow->TxSeqNumber -1,
           " maxSN: " << sFlow->maxSeqNb << " TxSeqNb-1" << sFlow->TxSeqNumber -1);
     }
+  NS_LOG_INFO("========sendDataPacket========"  << std::endl);
+  NS_LOG_INFO("sFlow->TxSeqNumber" << sFlow->TxSeqNumber -1 << std::endl);
+  NS_LOG_INFO("=============================="  << std::endl);
 
   // If no packet has made yet and maxSeqNb is equal to TxSeqNumber -1, then we can safely create a packet from connection buffer (sendingBuffer).
   if (p == 0 && ptrDSN == 0)
